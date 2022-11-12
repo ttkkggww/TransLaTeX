@@ -1,2 +1,2 @@
-# TranslaTeX
-TexをDeepLで翻訳してみようと思いました。
+# TransLaTeX
+LaTeXをDeepLで翻訳してみようと思いました。
