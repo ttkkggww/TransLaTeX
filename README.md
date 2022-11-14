@@ -1,2 +1,3 @@
 # TransLaTeX
 LaTeXをDeepLで翻訳してみようと思いました。
+開発中...
