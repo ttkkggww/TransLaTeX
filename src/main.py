@@ -23,10 +23,18 @@ def main():
     with zipfile.ZipFile(zip_path) as zip_file:
         zip_file.extractall(os.path.join(args.workspace,args.tmpdir))
         paths = zip_file.namelist()
-    save_zip = zipfile.ZipFile(args.workspace\
-            +str(datetime.datetime.now().replace(microsecond=0)).replace(' ','_')\
-            +"_translated_"+os.path.basename(args.path),'w')
-    #save_zip.write('path','savepath')
+    save_zip = zipfile.ZipFile(os.path.join(args.workspace\
+            ,str(datetime.datetime.now().replace(microsecond=0)).replace(' ','_')\
+            +"_translated_"+os.path.basename(args.path)),'w')
+    for zip_path in paths:
+        if(os.path.splitext(zip_path)[-1]=='.tex'):
+            with open(os.path.join(args.workspace,args.tmpdir,zip_path)) as f:
+               lines = f.readlines()
+            lines , comments = src.spliter.split_comment(lines)
+            with open(os.path.join(args.workspace,args.tmpdir,zip_path),'w') as f:
+                for line in lines:
+                    f.write(line)
+        save_zip.write(os.path.join(args.workspace,args.tmpdir,zip_path),zip_path)
     save_zip.close()
     shutil.rmtree(os.path.join(args.workspace,args.tmpdir))
 
