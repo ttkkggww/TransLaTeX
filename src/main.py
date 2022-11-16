@@ -1,5 +1,5 @@
 from src.connection import Connection
-import src.spliter
+import src.spliter as Splitter
 import zipfile
 import argparse
 import os
@@ -30,7 +30,11 @@ def main():
         if(os.path.splitext(zip_path)[-1]=='.tex'):
             with open(os.path.join(args.workspace,args.tmpdir,zip_path)) as f:
                lines = f.readlines()
-            lines , comments = src.spliter.split_comment(lines)
+            lines , comments = Splitter.remove_comment(lines)
+            #lines = [line.replace('\n','') for line in lines]
+            lines = [''.join(lines)]
+            stack = []
+            Splitter.split_begin_end(lines,stack)
             with open(os.path.join(args.workspace,args.tmpdir,zip_path),'w') as f:
                 for line in lines:
                     f.write(line)
