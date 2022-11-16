@@ -25,15 +25,11 @@ def split_begin_end(lines:list,stack:list):
         while(True):
             result = re.search(r"\\begin *?{ *?(.*?) *?}",line,re.S)
             if result:
-                print(result.group(1))
                 tag = result.group(1)
                 result = re.search(r"\\begin *?{ *?"+tag+" *?}.*?"+r"\\end *?{ *?"+tag+" *?}",line,re.S)
-                #result = re.search(r"\\begi.*?\\end.*?}",line,re.S)
                 num_str = str(len(stack)).zfill(5)
                 stack.append([result.group(),num_str])
-                #print(result.group())
                 line = line.replace(result.group(),num_str)
-                #line = re.sub(r"\\begin.*?\\end.*?}",num_str,line,re.S)
             else:
                 break
         print(line)
