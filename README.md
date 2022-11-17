@@ -4,7 +4,6 @@ deeplを使用して翻訳しています。
 ## Example
 ```console
 $python -m src.main --path '/hogehoge.zip' 
-<class 'str'>
 translating 0hogehoge.tex ...
 Faild to restore: 0main.tex ['\\keywords{hogehogex,hugahuga}', '00002']
 translating 1hogehoge.tex ...
