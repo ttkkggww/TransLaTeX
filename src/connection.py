@@ -18,7 +18,10 @@ class Connection:
                 }
         request = requests.post("https://api-free.deepl.com/v2/translate", data=params)
         result = request.json()
-        print(result)
+        res = ""
+        for txt in result['translations']:
+            res += txt["text"]
+        return res
 
 
     

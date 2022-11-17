@@ -72,5 +72,5 @@ def restore_escape(lines:list,stack:list,filename:str):
             res.append(line)
         lines = res;
         if(exist==False):
-            print("Faild to restore:",filename,top)
+            print('\033[31m'+"Faild to restore:"+'\033[0m',filename,top)
     return lines

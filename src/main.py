@@ -18,6 +18,7 @@ def get_args():
 def main():
     args = get_args()
     zip_path = args.path
+    connection = Connection()
     if os.path.exists(args.workspace) == False:
         os.makedirs(args.workspace)
     with zipfile.ZipFile(zip_path) as zip_file:
@@ -31,14 +32,16 @@ def main():
             with open(os.path.join(args.workspace,args.tmpdir,zip_path)) as f:
                lines = f.readlines()
             lines , comments = Splitter.remove_comment(lines)
-            #lines = [line.replace('\n','') for line in lines]
             lines = [''.join(lines)]
             stack = []
             lines,stack = Splitter.split_begin_end(lines,stack)
             lines,stack = Splitter.split_re(lines,stack)
             Splitter.warning_backslash(lines,zip_path)
-            #print(zip_path)
-            #print(stack)
+            tmp = []
+            print("translating",zip_path,"...")
+            for line in lines:
+                tmp.append(connection.translate(line))
+            lines = tmp
             lines = Splitter.restore_escape(lines,stack,zip_path)
             with open(os.path.join(args.workspace,args.tmpdir,zip_path),'w') as f:
                 for line in lines:
