@@ -1,5 +1,5 @@
 from src.connection import Connection
-import src.spliter as Splitter
+import src.splitter as Splitter
 import zipfile
 import argparse
 import os
@@ -34,7 +34,12 @@ def main():
             #lines = [line.replace('\n','') for line in lines]
             lines = [''.join(lines)]
             stack = []
-            Splitter.split_begin_end(lines,stack)
+            lines,stack = Splitter.split_begin_end(lines,stack)
+            lines,stack = Splitter.split_re(lines,stack)
+            Splitter.warning_backslash(lines,zip_path)
+            #print(zip_path)
+            #print(stack)
+            lines = Splitter.restore_escape(lines,stack,zip_path)
             with open(os.path.join(args.workspace,args.tmpdir,zip_path),'w') as f:
                 for line in lines:
                     f.write(line)

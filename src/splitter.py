@@ -21,6 +21,7 @@ def remove_comment(lines:list):
     return (res,comments)
 
 def split_begin_end(lines:list,stack:list):
+    res = []
     for line in lines:
         while(True):
             result = re.search(r"\\begin *?{ *?(.*?) *?}",line,re.S)
@@ -32,4 +33,44 @@ def split_begin_end(lines:list,stack:list):
                 line = line.replace(result.group(),num_str)
             else:
                 break
-        print(line)
+        res.append(line)
+    return (res,stack)
+
+def split_re(lines:list,stack:list):
+    with open("./escape_regular_expression.txt",'r') as esc_res:
+        esc_re_lines = esc_res.read().splitlines()
+        for esc_re in esc_re_lines:
+            res = []
+            for line in lines:
+                while(True):
+                    result = re.search(esc_re,line,re.S)
+                    if result:
+                        num_str = str(len(stack)).zfill(5)
+                        stack.append([result.group(),num_str])
+                        line = line.replace(result.group(),num_str)
+                    else:
+                        break
+                res.append(line)
+            lines = res
+    return (res,stack)
+
+def warning_backslash(lines:list,filename:str):
+    for line in lines:
+        for l in line.splitlines():
+            if(l.find('\\')!=-1):
+                print("Warning! A special command are not escaped!",filename,l)
+
+def restore_escape(lines:list,stack:list,filename:str):
+    while(len(stack)!=0):
+        top = stack.pop()
+        exist = False
+        res = []
+        for line in lines:
+            if(line.find(top[1])!=-1):
+                line = line.replace(top[1],top[0])
+                exist = True
+            res.append(line)
+        lines = res;
+        if(exist==False):
+            print("Faild to restore:",filename,top)
+    return lines
