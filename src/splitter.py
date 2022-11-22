@@ -58,7 +58,7 @@ def warning_backslash(lines:list,filename:str):
     for line in lines:
         for l in line.splitlines():
             if(l.find('\\')!=-1):
-                print("Warning! A special command are not escaped!",filename,l)
+                print("\033[33m"+"Warning!"+"\033[0m" + "A special command are not escaped!",filename,l)
 
 def restore_escape(lines:list,stack:list,filename:str):
     while(len(stack)!=0):
