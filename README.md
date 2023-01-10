@@ -1,5 +1,6 @@
 # TransLaTeX
 【重要】APIキーを`api.json`に記述する必要があります<br>
+`translate_list.json`内に翻訳したいファイルを記述する必要があります<br>
 LaTeXをDeepLで翻訳してみようと思いました。<br>
 deeplを使用して翻訳しています。
 ## Example
