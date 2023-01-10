@@ -6,6 +6,7 @@ import os
 import glob
 import datetime
 import shutil
+import json
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -16,6 +17,9 @@ def get_args():
 
 
 def main():
+    with open("translate_list.json",'r') as f:
+        translate_files = json.load(f)
+    print(translate_files)
     args = get_args()
     zip_path = args.path
     connection = Connection()
@@ -28,6 +32,9 @@ def main():
             ,str(datetime.datetime.now().replace(microsecond=0)).replace(' ','_')\
             +"_translated_"+os.path.basename(args.path)),'w')
     for zip_path in paths:
+        if(zip_path not in translate_files):
+            save_zip.write(os.path.join(args.workspace,args.tmpdir,zip_path),zip_path)
+            continue
         if(os.path.splitext(zip_path)[-1]=='.tex'):
             with open(os.path.join(args.workspace,args.tmpdir,zip_path)) as f:
                lines = f.readlines()

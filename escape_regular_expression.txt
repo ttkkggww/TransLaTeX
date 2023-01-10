@@ -5,7 +5,7 @@
 \\section\{.*?\}
 \\%
 \\keywords\{.*?\}
-\\ekeywords\{.*?\}
+\\ekeywords{.*?\}
 \\newpage
 \\_
 \\abstract\{.*?\}
@@ -18,3 +18,12 @@
 \\course.*?\}
 \\title.*?\}
 \\etitle.*?\}
+\\thispagestyle.*?\}
+\\chapter.*?\}
+\\setlength.*?\}.*?\}
+\\subsection.*?\}
+\\lhead.*?\}
+\\lfoot.*?\}
+\\cfoot.*?\}
+\\rhead.*?\}
+\\renewcommand.*?\}.*?\}
