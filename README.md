@@ -1,6 +1,7 @@
 # TransLaTeX
+【重要】APIキーをapi.jsonに記述する必要があります
 LaTeXをDeepLで翻訳してみようと思いました。
-deeplを使用して翻訳しています。
+deeplを使用して翻訳しています。<br>
 ## Example
 ```console
 $python -m src.main --path '/hogehoge.zip' 
